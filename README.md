@@ -432,3 +432,5 @@ AI-driven risk prediction
 
 By combining AI risk assessment, parametric triggers, and automated payouts, the solution creates a scalable safety net for gig economy workers.
 
+
+veerakumar
