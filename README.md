@@ -249,6 +249,79 @@ If disruption occurs:
 Loss = ₹1200
 Insurance payout = ₹600
 
+
+6-Week Minimum Premium Requirement
+Workers must pay premiums for a minimum of 6 consecutive weeks before becoming eligible for insurance claims.
+
+Waiting Period Rule:
+
+Week 1 → Premium paid → Claim not eligible
+Week 2 → Premium paid → Claim not eligible
+Week 3 → Premium paid → Claim not eligible
+Week 4 → Premium paid → Claim not eligible
+Week 5 → Premium paid → Claim not eligible
+Week 6 → Premium paid → Claim not eligible
+
+Insurance coverage becomes fully active from Week 7 onwards.
+
+This waiting period prevents users from joining the platform only when disruptions are predicted.
+
+Automatic Weekly Premium Payment
+During registration, workers provide the bank account or UPI ID where their delivery earnings are credited.
+
+The system enables automatic weekly premium deduction.
+
+Example:
+
+Weekly Premium = ₹50
+Auto debit from worker account every week.
+
+This ensures uninterrupted insurance coverage without requiring manual payments.
+
+Payment Failure Handling
+If the weekly premium cannot be deducted due to insufficient balance, the system automatically initiates a Grace Period.
+
+Grace Period Duration = 2 days
+
+The worker is notified through the platform:
+
+"Premium payment failed. Please add balance within 2 days to continue insurance coverage."
+
+Grace Period Claim Handling
+If a disruption occurs during the 2-day grace period, the claim is not immediately rejected.
+
+Instead, the system places the claim in Pending Status.
+
+Example Flow
+
+Premium debit failed → Grace Period started
+Day 1 → Heavy rain disruption detected
+Claim created → Status = Pending
+
+If the worker adds money within the 2-day grace period:
+
+The system automatically retries the payment.
+
+If payment succeeds:
+
+Policy becomes Active
+Pending claim is automatically approved
+Payout is processed.
+
+Policy Cancellation Rule
+If the worker does not add money within the 2-day grace period, the insurance policy is automatically cancelled.
+
+Policy Status = Cancelled
+
+In this case:
+
+Pending claims are rejected
+
+Future disruptions will not trigger payouts
+
+The worker must subscribe again to activate a new insurance policy.
+
+
 8. Parametric Triggers
 Heavy Rain
 Trigger condition:
