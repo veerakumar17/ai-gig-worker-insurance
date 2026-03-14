@@ -149,27 +149,71 @@ Final income that day:
 ₹250 delivery income + ₹500 insurance payout = ₹750
 
 6. Workflow
+
+
 User registers on platform
+
+
 ↓
+
+
 User enters delivery location and platform
+
+
 ↓
+
+
 System collects environmental data from APIs
+
+
 ↓
+
+
 AI model predicts disruption risk score
+
+
 ↓
+
+
 User selects weekly insurance plan
+
+
 ↓
+
+
 User pays weekly premium
+
+
 ↓
+
+
 System monitors disruption triggers
+
+
 ↓
+
+
 Trigger detected (rain/heat/pollution)
+
+
 ↓
+
+
 Claim automatically initiated
+
+
 ↓
+
+
 Fraud detection verification
+
+
 ↓
+
+
 Instant payout processed
+
+
 
 7. Weekly Premium Model
 Typical worker earnings:
