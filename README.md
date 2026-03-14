@@ -256,11 +256,23 @@ Workers must pay premiums for a minimum of 6 consecutive weeks before becoming e
 Waiting Period Rule:
 
 Week 1 → Premium paid → Claim not eligible
+
+
 Week 2 → Premium paid → Claim not eligible
+
+
 Week 3 → Premium paid → Claim not eligible
+
+
 Week 4 → Premium paid → Claim not eligible
+
+
 Week 5 → Premium paid → Claim not eligible
+
+
 Week 6 → Premium paid → Claim not eligible
+
+
 
 Insurance coverage becomes fully active from Week 7 onwards.
 
