@@ -17,8 +17,6 @@ The system combines:
 
 AI-based risk prediction
 
-dynamic premium calculation
-
 automated claim triggering
 
 intelligent fraud detection
