@@ -423,19 +423,6 @@ Logistic Regression
 
 Gradient Boosting
 
-Dynamic Premium Calculation
-Premium adjusts based on predicted risk.
-
-Example formula:
-premium = base_price + (risk_score × risk_multiplier)
-Example:
-
-premium = 20 + (0.7 × 20)
-
-Final premium ≈ ₹34
-
-Workers in safer zones pay lower premiums.
-
 Fraud Detection
 AI detects suspicious claim behaviour.
 
