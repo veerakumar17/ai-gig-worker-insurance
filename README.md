@@ -165,6 +165,30 @@ Instant payout processed
 
 > Premium ≈ 5–10% of coverage value (standard micro-insurance logic)
 
+### Dynamic Premium Calculation
+
+The platform uses a risk-based pricing model where the weekly premium is dynamically adjusted based on the worker's delivery zone risk level.
+
+**Risk Multipliers:**
+
+| Risk Level | Multiplier |
+|---|---|
+| 🟢 Low Risk | 0.9 |
+| 🟡 Medium Risk | 1.0 |
+| 🔴 High Risk | 1.2 |
+
+**Formula:** `Final Premium = Base Premium × Risk Multiplier`
+
+**Example (Premium Plan — ₹50 base):**
+
+| Risk Level | Calculation | Final Premium |
+|---|---|---|
+| 🟢 Low Risk | ₹50 × 0.9 | ₹45 |
+| 🟡 Medium Risk | ₹50 × 1.0 | ₹50 |
+| 🔴 High Risk | ₹50 × 1.2 | ₹60 |
+
+> Maximum premium is capped to ensure affordability and prevent overcharging in high-risk scenarios.
+
 ### 6-Week Minimum Waiting Period
 
 Workers must pay premiums for **6 consecutive weeks** before becoming eligible for claims. Coverage becomes fully active from **Week 7 onwards**.
@@ -175,7 +199,7 @@ This prevents users from joining only when disruptions are predicted.
 
 Workers provide their bank account or UPI ID during registration. The system auto-debits the weekly premium to ensure uninterrupted coverage.
 
-### 💳 Payment Failure & Grace Period
+### Payment Failure & Grace Period
 
 If a deduction fails due to insufficient balance:
 
