@@ -1,473 +1,274 @@
-# ai-gig-worker-insurance
-AI-powered parametric insurance platform protecting food delivery partners from income loss caused by disruptions like heavy rain, extreme heat, floods, or pollution. The system uses AI-based risk assessment to set weekly premiums and automatically triggers payouts when disruption thresholds are detected.
-
-1. Project Title
-AI-Powered Parametric Insurance for Gig Delivery Workers
+# AI-Powered Parametric Insurance for Gig Delivery Workers
 
 An AI-enabled parametric insurance platform that protects food delivery partners from income loss caused by disruptions such as heavy rain, extreme heat, floods, or severe pollution.
 
-2. Overview
-The gig economy has rapidly expanded in India, with millions of delivery workers supporting platforms like Swiggy and Zomato.
+---
 
-These workers depend heavily on daily deliveries for income. However, environmental disruptions such as heavy rain, heat waves, floods, and pollution can significantly reduce delivery activity, resulting in immediate income loss.
+## Table of Contents
 
-This project introduces an AI-powered parametric insurance platform where workers subscribe to a weekly income protection plan. The platform continuously monitors environmental data and automatically triggers payouts when disruption conditions are met.
+1. [Overview](#overview)
+2. [Problem Statement](#problem-statement)
+3. [Persona](#persona)
+4. [Persona Scenario](#persona-scenario)
+5. [Workflow](#workflow)
+6. [Weekly Premium Model](#weekly-premium-model)
+7. [Parametric Triggers](#parametric-triggers)
+8. [Platform Choice](#platform-choice)
+9. [AI Integration](#ai-integration)
+10. [Tech Stack](#tech-stack)
+11. [Architecture](#architecture)
+12. [Development Plan](#development-plan)
+13. [Expected Impact](#expected-impact)
 
-The system combines:
+---
 
-AI-based risk prediction
+## Overview
 
-automated claim triggering
+The gig economy has rapidly expanded in India, with millions of delivery workers supporting platforms like Swiggy and Zomato. These workers depend heavily on daily deliveries for income, but environmental disruptions — heavy rain, heat waves, floods, and pollution — can significantly reduce delivery activity and cause immediate income loss.
 
-intelligent fraud detection
+This platform introduces a weekly income protection plan where:
 
-to create a scalable income protection system for gig workers.
+- Workers subscribe and pay a small weekly premium
+- The system continuously monitors environmental data
+- Payouts are **automatically triggered** when disruption thresholds are met
 
-3. Problem Statement
+The system combines **AI-based risk prediction**, **automated claim triggering**, and **intelligent fraud detection** to create a scalable income protection system for gig workers.
+
+---
+
+## Problem Statement
+
 Food delivery workers in India face unstable income due to environmental disruptions.
 
-Research indicates:
+**Research indicates:**
+- Average hourly income ≈ ₹102/hour
+- Workers typically work 9–11 hours per day
+- Monthly earnings range ₹20,000 – ₹30,000 depending on city
 
-Average hourly income ≈ ₹102/hour
+> Sources: Times of India, NDTV, MoneyControl, LinkedIn industry insights
 
-Workers typically work 9–11 hours per day
+**Workers remain financially vulnerable because:**
+- Income depends entirely on deliveries
+- Bad weather reduces orders
+- Road conditions become unsafe
+- Workers must still cover fuel and maintenance costs
 
-Monthly earnings range ₹20,000 – ₹30,000 depending on city
+**Example impact:**
 
-Sources include Times of India, NDTV, MoneyControl and LinkedIn industry insights.
-
-Despite working long hours, workers remain financially vulnerable because:
-
-income depends entirely on deliveries
-
-bad weather reduces orders
-
-road conditions become unsafe
-
-workers must still cover fuel and maintenance costs
-
-Example:
-
-Normal working day
-15 deliveries → ₹1000 income
-
-Rain disruption day
-6 deliveries → ₹400 income
-
-Income loss = ₹600 in a single day
+| Scenario | Deliveries | Income |
+|---|---|---|
+| Normal working day | 15 | ₹1,000 |
+| Rain disruption day | 6 | ₹400 |
+| **Income loss** | | **₹600** |
 
 Currently, there is no dedicated insurance product protecting gig workers from short-term income disruption.
 
-4. Persona
-Target Persona: Food Delivery Partner
-Example Worker Profile
+---
 
-Name: Ravi
-Age: 27
-Platform: Swiggy Delivery Partner
+## Persona
 
-Work Pattern
-Works 9–10 hours/day
+**Target Persona: Food Delivery Partner**
 
-Works 6 days/week
+| Attribute | Details |
+|---|---|
+| Name | Ravi |
+| Age | 27 |
+| Platform | Swiggy |
+| Work hours | 9–10 hours/day, 6 days/week |
+| Daily deliveries | ~15 |
+| Hourly income | ≈ ₹100/hour |
+| Daily income | ₹900 – ₹1,200 |
+| Monthly income | ₹22,000 – ₹28,000 |
 
-Completes around 15 deliveries daily
+**Daily Expenses:**
+- Fuel → ₹150 – ₹300
+- Mobile data → ₹10 – ₹20
+- Bike maintenance → ₹30 – ₹50
 
-Earnings
-Average hourly income ≈ ₹100/hour
+Net daily income after expenses can drop to **₹600 – ₹900/day**, making delivery workers highly vulnerable to income shocks.
 
-Daily income ≈ ₹900 – ₹1200
+---
 
-Monthly income ≈ ₹22,000 – ₹28,000
+## Persona Scenario
 
-Daily Expenses
-Fuel → ₹150 – ₹300
-Mobile data → ₹10 – ₹20
-Bike maintenance → ₹30 – ₹50
+**Worker:** Ramesh | **Platform:** Swiggy / Zomato | **City:** Hyderabad
 
-Net daily income after expenses can drop to ₹600 – ₹900/day.
+**Normal Day vs Rain Disruption:**
 
-This makes delivery workers vulnerable to income shocks.
+| | Normal Day | Rain Disruption Day |
+|---|---|---|
+| Hours worked | 10 | 10 |
+| Deliveries | 15 | 5 |
+| Income | ₹800 | ₹250 |
 
-5. Persona Scenario
-Delivery Worker Scenario
-Name: Ramesh
-Platform: Swiggy / Zomato
-City: Hyderabad
+**Income loss = ₹550**
 
-Work Pattern:
+**Daily expenses:**
+- Fuel → ₹200 | Mobile data → ₹20 | Food → ₹100
+- **Total = ₹320**
 
-Works 10–12 hours/day
+On a rain day, Ramesh earns ₹250 but spends ₹320 — **he loses money instead of earning.**
 
-Works 6–7 days/week
+**With Insurance:**
 
-Monthly income ₹20,000 – ₹30,000
+| | Amount |
+|---|---|
+| Weekly premium paid | ₹50 |
+| Delivery income (rain day) | ₹250 |
+| Insurance payout (auto-triggered) | ₹500 |
+| **Final income** | **₹750** |
 
-Rain Disruption Example
-Normal day
+---
 
-10 working hours
-15 deliveries
-Income = ₹800
+## Workflow
 
-Rain disruption day
-
-5 deliveries
-Income = ₹250
-
-Income loss:
-
-₹800 − ₹250 = ₹550
-
-Expenses
-Fuel → ₹200
-Mobile data → ₹20
-Food → ₹100
-
-Total expenses → ₹320
-
-Income that day = ₹250
-Expenses = ₹320
-
-Ramesh loses money instead of earning.
-
-Insurance Support
-Ramesh subscribes to a weekly protection plan.
-
-Weekly premium = ₹50
-
-If rainfall exceeds threshold, the platform automatically triggers payout.
-
-Example payout:
-
-₹500 sent instantly via UPI
-
-Final income that day:
-
-₹250 delivery income + ₹500 insurance payout = ₹750
-
-6. Workflow
-
-
+```
 User registers on platform
-
-
-↓
-
-
+        ↓
 User enters delivery location and platform
-
-
-↓
-
-
+        ↓
 System collects environmental data from APIs
-
-
-↓
-
-
+        ↓
 AI model predicts disruption risk score
-
-
-↓
-
-
+        ↓
 User selects weekly insurance plan
-
-
-↓
-
-
+        ↓
 User pays weekly premium
-
-
-↓
-
-
+        ↓
 System monitors disruption triggers
-
-
-↓
-
-
-Trigger detected (rain/heat/pollution)
-
-
-↓
-
-
+        ↓
+Trigger detected (rain / heat / pollution)
+        ↓
 Claim automatically initiated
-
-
-↓
-
-
+        ↓
 Fraud detection verification
-
-
-↓
-
-
+        ↓
 Instant payout processed
+```
 
+---
 
+## Weekly Premium Model
 
-7. Weekly Premium Model
-Typical worker earnings:
+**Typical worker earnings:**
+- Hourly income ≈ ₹100 × 10 hours = ₹1,000/day
+- Weekly income = ₹1,000 × 6 days = **₹6,000/week**
+- Weather disruptions can reduce earnings by **₹600 – ₹1,200/week**
 
-Hourly income ≈ ₹100
-Daily work ≈ 10 hours
+### Insurance Plans
 
-Daily income = ₹1000
+| Plan | Weekly Premium | Max Weekly Payout |
+|---|---|---|
+| Basic | ₹20 | ₹300 |
+| Standard | ₹35 | ₹600 |
+| Premium | ₹50 | ₹1,000 |
 
-Weekly income:
+> Premium ≈ 5–10% of coverage value (standard micro-insurance logic)
 
-₹1000 × 6 days = ₹6000/week
+### 6-Week Minimum Waiting Period
 
-Weather disruptions can reduce earnings by ₹600–₹1200/week.
+Workers must pay premiums for **6 consecutive weeks** before becoming eligible for claims. Coverage becomes fully active from **Week 7 onwards**.
 
-Insurance Plans
-| Plan     | Weekly Premium | Max Weekly Payout |
-| -------- | -------------- | ----------------- |
-| Basic    | ₹20            | ₹300              |
-| Standard | ₹35            | ₹600              |
-| Premium  | ₹50            | ₹1000             |
-Premium follows common micro-insurance logic:
+This prevents users from joining only when disruptions are predicted.
 
-Premium ≈ 5–10% of coverage value
+### Automatic Premium Deduction
 
-Example:
+Workers provide their bank account or UPI ID during registration. The system auto-debits the weekly premium to ensure uninterrupted coverage.
 
-Weekly income = ₹6000
-Premium = ₹35
+### Payment Failure & Grace Period
 
-If disruption occurs:
+If a deduction fails due to insufficient balance:
 
-Loss = ₹1200
-Insurance payout = ₹600
+1. A **2-day grace period** is initiated
+2. Worker is notified: *"Premium payment failed. Please add balance within 2 days to continue coverage."*
+3. Any disruption claim during grace period is set to **Pending** status
+4. If payment succeeds within 2 days → policy reactivates → pending claim is approved and payout is processed
+5. If payment fails after 2 days → **policy is cancelled**, pending claims are rejected
 
+---
 
-6-Week Minimum Premium Requirement
-Workers must pay premiums for a minimum of 6 consecutive weeks before becoming eligible for insurance claims.
+## Parametric Triggers
 
-Waiting Period Rule:
+| Trigger | Condition | Reason |
+|---|---|---|
+| Heavy Rain | Rainfall > 70 mm in 24 hours | Waterlogging reduces delivery activity |
+| Extreme Heat | Temperature > 42°C | Heatwaves reduce delivery operations |
+| Severe Pollution | AQI > 350 | Outdoor activity becomes dangerous |
+| Flood | Government flood alert or rainfall > 120 mm | Roads become impassable |
 
-Week 1 → Premium paid → Claim not eligible
+**Data Sources:**
+- India Meteorological Department (IMD)
+- CPCB Pollution API
+- OpenWeather Air Pollution API
 
+---
 
-Week 2 → Premium paid → Claim not eligible
+## Platform Choice
 
+The prototype is implemented as a **Web Platform** for the following reasons:
 
-Week 3 → Premium paid → Claim not eligible
+- Faster development during hackathon
+- Easy testing and demo
+- Accessible via browser on both mobile and desktop
+- Simpler deployment
 
+> Future versions will include a dedicated mobile application for workers.
 
-Week 4 → Premium paid → Claim not eligible
+---
 
+## AI Integration
 
-Week 5 → Premium paid → Claim not eligible
+### Risk Prediction
 
+ML models predict disruption probability per delivery zone using:
+- Rainfall, temperature, AQI
+- Historical disruption patterns
+- Delivery activity data
 
-Week 6 → Premium paid → Claim not eligible
+**Risk Level Classification:**
 
+| Risk Score | Risk Level |
+|---|---|
+| 0.0 – 0.3 | 🟢 Low Risk |
+| 0.3 – 0.6 | 🟡 Medium Risk |
+| 0.6 – 1.0 | 🔴 High Risk |
 
+**Examples:**
+- Anna Nagar → 0.25 → Low Risk
+- Velachery → 0.52 → Medium Risk
+- Flood-prone zone → 0.78 → High Risk
 
-Insurance coverage becomes fully active from Week 7 onwards.
+**Models used:** Random Forest, Logistic Regression, Gradient Boosting
 
-This waiting period prevents users from joining the platform only when disruptions are predicted.
+### Fraud Detection
 
-Automatic Weekly Premium Payment
-During registration, workers provide the bank account or UPI ID where their delivery earnings are credited.
+AI detects suspicious claim behaviour including:
 
-The system enables automatic weekly premium deduction.
-
-Example:
-
-Weekly Premium = ₹50
-Auto debit from worker account every week.
-
-This ensures uninterrupted insurance coverage without requiring manual payments.
-
-Payment Failure Handling
-If the weekly premium cannot be deducted due to insufficient balance, the system automatically initiates a Grace Period.
-
-Grace Period Duration = 2 days
-
-The worker is notified through the platform:
-
-"Premium payment failed. Please add balance within 2 days to continue insurance coverage."
-
-Grace Period Claim Handling
-If a disruption occurs during the 2-day grace period, the claim is not immediately rejected.
-
-Instead, the system places the claim in Pending Status.
-
-Example Flow
-
-Premium debit failed → Grace Period started
-Day 1 → Heavy rain disruption detected
-Claim created → Status = Pending
-
-If the worker adds money within the 2-day grace period:
-
-The system automatically retries the payment.
-
-If payment succeeds:
-
-Policy becomes Active
-Pending claim is automatically approved
-Payout is processed.
-
-Policy Cancellation Rule
-If the worker does not add money within the 2-day grace period, the insurance policy is automatically cancelled.
-
-Policy Status = Cancelled
-
-In this case:
-
-Pending claims are rejected
-
-Future disruptions will not trigger payouts
-
-The worker must subscribe again to activate a new insurance policy.
-
-
-8. Parametric Triggers
-Heavy Rain
-Trigger condition:
-
-Rainfall > 70 mm in 24 hours
-
-Reason: Waterlogging reduces delivery activity.
-
-Extreme Heat
-Trigger condition:
-
-Temperature > 42°C
-
-Reason: heatwaves reduce delivery operations.
-
-Severe Pollution
-Trigger condition:
-
-AQI > 350
-
-Reason: outdoor activity becomes dangerous.
-
-Data source:
-
-CPCB Pollution API
-OpenWeather Air Pollution API
-
-Flood
-Trigger condition:
-
-Government flood alert
-or rainfall > 120 mm
-
-Weather data can be sourced from India Meteorological Department (IMD).
-
-9. Platform Choice
-The prototype is implemented as a Web Platform.
-
-Reasons:
-
-faster development during hackathon
-
-easy testing and demo
-
-accessible via browser on both mobile and desktop
-
-simpler deployment
-
-Future versions can include a mobile application for workers.
-
-10. AI Integration
-Risk Prediction (Machine Learning)
-Machine learning models predict disruption probability in each delivery zone.
-
-Features used:
-
-rainfall
-
-temperature
-
-AQI
-
-historical disruption patterns
-
-delivery activity
-
-Example output:
-
-Disruption Probability = 0.75
-
-Risk Level Classification
-The ML model outputs a risk score between 0 and 1.
-| Risk Score | Risk Level  |
-| ---------- | ----------- |
-| 0.0 – 0.3  | Low Risk    |
-| 0.3 – 0.6  | Medium Risk |
-| 0.6 – 1.0  | High Risk   |
-Example:
-
-Anna Nagar → 0.25 → Low Risk
-Velachery → 0.52 → Medium Risk
-Flood-prone zone → 0.78 → High Risk
-
-ML models used:
-
-Random Forest
-
-Logistic Regression
-
-Gradient Boosting
-
-Fraud Detection
-AI detects suspicious claim behaviour.
-
-Examples:
-
-GPS spoofing
-Example: location jump 2 km → 30 km instantly
-
-Duplicate claims
-Same disruption claimed multiple times
-
-Abnormal claim patterns
-Example: 15 claims/month vs normal 2 claims/month
-
-Algorithms used:
-
-Isolation Forest
-
-anomaly detection
-
-clustering
-
-11. Tech Stack
-Frontend
-React.js + Tailwind CSS
-
-Backend
-Python + FastAPI
-
-Machine Learning
-Scikit-learn
-
-Database
-SQLite
-
-External APIs
-
-Weather data → India Meteorological Department
-Pollution data → CPCB / OpenWeather APIs
-
-Payments
-
-Mock UPI / Razorpay sandbox
-
-12. Architecture
+| Fraud Type | Example |
+|---|---|
+| GPS spoofing | Location jumps 2 km → 30 km instantly |
+| Duplicate claims | Same disruption claimed multiple times |
+| Abnormal patterns | 15 claims/month vs normal 2 claims/month |
+
+**Algorithms:** Isolation Forest, anomaly detection, clustering
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React.js + Tailwind CSS |
+| Backend | Python + FastAPI |
+| Machine Learning | Scikit-learn |
+| Database | SQLite |
+| Weather Data | India Meteorological Department API |
+| Pollution Data | CPCB / OpenWeather APIs |
+| Payments | Mock UPI / Razorpay sandbox |
+
+---
+
+## Architecture
 
 ```
 +----------------------+
@@ -505,45 +306,25 @@ Mock UPI / Razorpay sandbox
 +----------------------+
 ```
 
-13. Development Plan
+---
 
+## Development Plan
 
-Phase 1 – Ideation
-define persona
+| Phase | Focus | Tasks |
+|---|---|---|
+| Phase 1 | Ideation | Persona definition, system architecture, README |
+| Phase 2 | Core Platform | User registration, policy management, premium calculation, claims system |
+| Phase 3 | Advanced Features | AI fraud detection, payout simulation, analytics dashboards |
 
-system architecture
+---
 
-README documentation
+## Expected Impact
 
-Phase 2 – Core Platform
-user registration
+This platform provides financial protection for gig delivery workers by:
 
-insurance policy management
+- Protecting workers from sudden income loss
+- Providing automated, instant payouts
+- Offering affordable micro-insurance (from ₹20/week)
+- Using AI-driven risk prediction for fair pricing
 
-premium calculation
-
-claims system
-
-Phase 3 – Advanced Features
-AI fraud detection
-
-payout simulation
-
-analytics dashboards
-
-14. Expected Impact
-This platform provides financial protection for gig delivery workers.
-
-Benefits:
-
-protects workers from sudden income loss
-
-provides automated payouts
-
-affordable micro-insurance
-
-AI-driven risk prediction
-
-By combining AI risk assessment, parametric triggers, and automated payouts, the solution creates a scalable safety net for gig economy workers.
-
-
+By combining AI risk assessment, parametric triggers, and automated payouts, the solution creates a **scalable safety net for gig economy workers** across India.
