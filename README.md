@@ -175,16 +175,17 @@ This prevents users from joining only when disruptions are predicted.
 
 Workers provide their bank account or UPI ID during registration. The system auto-debits the weekly premium to ensure uninterrupted coverage.
 
-### Payment Failure & Grace Period
+### 💳 Payment Failure & Grace Period
 
 If a deduction fails due to insufficient balance:
 
-1. A **2-day grace period** is initiated
-2. Worker is notified: *"Premium payment failed. Please add balance within 2 days to continue coverage."*
-3. Any disruption claim during grace period is set to **Pending** status
-4. If payment succeeds within 2 days → policy reactivates → pending claim is approved and payout is processed
-5. If payment fails after 2 days → **policy is cancelled**, pending claims are rejected
-
+1. A **2-day grace period** is initiated  
+2. Worker is notified: *"Premium payment failed. Please add balance within 2 days to continue coverage."*  
+3. Any disruption claim during grace period is set to **Pending** status  
+4. If payment succeeds within 2 days → policy remains active → pending claim is approved and payout is processed  
+5. If payment is not completed after 2 days → **policy remains active with a risk-based daily interest penalty applied**, pending claims continue to remain in **Pending** state until payment is completed  
+6. Once balance is available → system auto-deducts **pending premium + accumulated interest** → policy becomes fully active and pending claims are processed
+   
 ---
 
 ## Parametric Triggers
@@ -238,7 +239,7 @@ ML models predict disruption probability per delivery zone using:
 - Velachery → 0.52 → Medium Risk
 - Flood-prone zone → 0.78 → High Risk
 
-**Models used:** Random Forest, Logistic Regression, Gradient Boosting
+**Models used:** Random Forest
 
 ### Fraud Detection
 
