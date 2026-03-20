@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic[email]
+scikit-learn
+joblib
+pandas
+numpy
+requests
+python-dotenv
+alembic
+groq
+passlib[bcrypt]
+bcrypt==4.0.1
