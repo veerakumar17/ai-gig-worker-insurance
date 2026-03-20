@@ -16,10 +16,12 @@ An AI-enabled parametric insurance platform that protects food delivery partners
 8. [Platform Choice](#platform-choice)
 9. [AI Integration](#ai-integration)
 10. [AI-Based Plan Recommendation System](#ai-based-plan-recommendation-system)
-11. [Tech Stack](#tech-stack)
-12. [Architecture](#architecture)
-13. [Development Plan](#development-plan)
-14. [Expected Impact](#expected-impact)
+11. [Payment Failure, Grace Period & Risk-Based Interest System](#payment-failure-grace-period--risk-based-interest-system)
+12. [Fraud Detection & Adversarial Defense System](#fraud-detection--adversarial-defense-system)
+13. [Tech Stack](#tech-stack)
+14. [Architecture](#architecture)
+15. [Development Plan](#development-plan)
+16. [Expected Impact](#expected-impact)
 
 ---
 
@@ -213,6 +215,81 @@ If a deduction fails due to insufficient balance:
    
 ---
 
+## Payment Failure, Grace Period & Risk-Based Interest System
+
+If automatic premium deduction fails due to insufficient balance, a 2-day grace period is initiated.
+
+### Grace Period (First 2 Days)
+
+- Worker is notified to add balance
+- Policy remains temporarily active
+- Any disruption during this period → Claim marked as **Pending**
+
+### Post Grace Period (After 2 Days)
+
+- Policy is **not** cancelled
+- A risk-based daily interest penalty is applied
+- The system continuously monitors user account balance
+
+### Risk-Based Interest Model
+
+Interest is dynamically calculated based on the user's risk profile.
+
+**Formula:** `Interest = Premium × Risk Rate × Delay Days`
+
+**Final Payable:** `Total Amount = Premium + (Premium × Risk Rate × Delay Days)`
+
+| Variable | Description |
+|---|---|
+| Premium (P) | Weekly premium amount |
+| Risk Rate (R) | Based on user risk level |
+| Delay Days (D) | Number of days after grace period |
+
+**Risk Levels & Interest Rates:**
+
+| Risk Level | Interest Rate (per day) |
+|---|---|
+| 🟢 Low Risk | 1% (0.01) |
+| 🟡 Medium Risk | 2% (0.02) |
+| 🔴 High Risk | 3% (0.03) |
+
+**Risk Determination** — Risk level is calculated using:
+- Historical claim behavior
+- Fraud risk score
+- Payment reliability
+- Activity patterns
+
+> Higher risk users → Higher penalty
+
+### Interest Calculation Examples
+
+**Weekly Premium = ₹50, Delay = 3 days**
+
+| Risk Level | Calculation | Interest | Total Payable |
+|---|---|---|---|
+| 🟢 Low Risk (1%) | 50 × 0.01 × 3 | ₹1.5 | ₹51.5 |
+| 🟡 Medium Risk (2%) | 50 × 0.02 × 3 | ₹3 | ₹53 |
+| 🔴 High Risk (3%) | 50 × 0.03 × 3 | ₹4.5 | ₹54.5 |
+
+### Auto-Deduction System
+
+Once balance is available, the system automatically deducts:
+- Pending premium
+- Accumulated interest
+
+> Fully automated — no manual payment required.
+
+### Claim Handling During Pending Period
+
+If a disruption occurs during the grace period or interest (pending) period:
+- Claim is recorded as **Pending**
+
+After successful payment (premium + interest):
+- Policy becomes active
+- Pending claims are validated and processed
+
+---
+
 ## Parametric Triggers
 
 | Trigger | Condition | Reason |
@@ -300,6 +377,133 @@ LLaMA3 handles intelligent decision-making and personalized recommendations. It 
 | 1 | ML Model | Predicts risk score |
 | 2 | Rule-Based Constraints | Ensures affordability (avoids expensive plans for low-salary users) |
 | 3 | LLaMA3 | Final recommendation with explanation |
+
+---
+
+## Fraud Detection & Adversarial Defense System
+
+The system uses an AI-powered, multi-layer fraud detection engine to identify and prevent malicious activities such as GPS spoofing, duplicate claims, bot behavior, and coordinated fraud attacks.
+
+Instead of relying on a single signal, the platform combines location intelligence, behavioral analytics, device fingerprinting, and graph-based fraud detection.
+
+### Fraud Detection Overview
+
+| Fraud Type | Description | Detection Logic | Example |
+|---|---|---|---|
+| 📍 GPS Spoofing | Fake location injection using spoofing apps | Compare GPS vs motion sensors vs IP location | Location jumps from 2 km → 30 km instantly |
+| 🔁 Duplicate Claims | Same disruption claimed multiple times | Claim pattern matching + timestamp validation | Same incident claimed repeatedly |
+| 📉 Abnormal Patterns | Unusual claim frequency or activity | Behavioral baseline deviation detection | 15 claims/month vs normal 2/month |
+
+### Multi-Source Location Verification
+
+The system validates user location using multiple independent signals:
+- GPS coordinates
+- IP-based location
+- Device motion sensors (accelerometer, gyroscope)
+
+**Detection Logic:**
+- If GPS changes but no physical movement detected → flagged
+- If GPS ≠ IP location mismatch → flagged
+
+> Prevents fake location injection (GPS spoofing attacks)
+
+### Behavioral Analysis Engine
+
+Each user has a dynamic behavioral profile built over time.
+
+**Tracked Parameters:**
+- Speed patterns
+- Delivery frequency
+- Active working hours
+- Route consistency
+
+**Detects:**
+- Unrealistic travel speeds
+- Continuous 24/7 activity (bot behavior)
+- Repetitive identical routes
+
+> Identifies non-human or scripted activity
+
+### Device Fingerprinting
+
+Each device is uniquely identified using:
+- Device ID
+- OS version
+- App version
+- Hardware-level signals
+
+**Detects:**
+- Multiple accounts using same device
+- Frequent device switching
+
+> Prevents multi-account fraud
+
+### Fraud Ring Detection (Graph-Based Intelligence)
+
+The system builds a relationship graph between users using:
+- Shared IP addresses
+- Shared devices
+- Synchronized activity patterns
+
+**Detects:**
+- Clusters of coordinated users
+- Organized fraud rings
+
+> Critical for detecting large-scale coordinated fraud attacks
+
+### Real-Time Risk Scoring Engine
+
+Each user action is evaluated using a dynamic risk score.
+
+**Formula:** `Risk Score = Location Risk + Behavior Risk + Device Risk + Network Risk`
+
+**Risk Weights:**
+
+| Factor | Score |
+|---|---|
+| Location mismatch | +30 |
+| Abnormal behavior | +20 |
+| Device reuse | +40 |
+| Fraud cluster match | +50 |
+
+**Decision Engine:**
+
+| Score Range | Action |
+|---|---|
+| 0 – 30 | ✅ Allow |
+| 30 – 70 | ⚠️ Monitor |
+| 70+ | 🚫 Block |
+
+### Algorithms Used
+
+**1. Isolation Forest**
+- Detects anomalies in GPS movement, claim frequency, and behavioral deviations
+- Works well for outlier detection in large datasets
+
+**2. Clustering (DBSCAN / K-Means)**
+- Groups users based on device similarity, IP patterns, and behavior
+- Identifies fraud rings & coordinated attacks
+
+**3. Rule-Based Validation**
+- Detects deterministic fraud: impossible speeds, location mismatch, duplicate claims
+- Provides instant validation (low latency)
+
+**4. Behavioral Profiling**
+- Compares current activity vs historical patterns
+- Detects subtle deviations over time
+
+### Fairness & False Positive Protection
+
+To ensure genuine users are not affected:
+- First anomaly → Warning
+- Repeated anomalies → Temporary restriction
+- High-confidence fraud → Block
+
+> Manual review available for edge cases. Adaptive thresholds applied to reduce false positives.
+
+### Defense-in-Depth Architecture
+
+This system is designed so that no single signal decides fraud — multiple layers combine to reach a final decision, ensuring high accuracy, real-time detection, and scalability for production systems.
 
 ---
 
