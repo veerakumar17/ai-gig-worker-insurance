@@ -2,11 +2,12 @@ import joblib
 import numpy as np
 import os
 
-MODEL_PATH = "model/model.pkl"
-FEATURES_PATH = "model/features.pkl"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+MODEL_PATH = os.path.join(BASE_DIR, "model", "model.pkl")
+FEATURES_PATH = os.path.join(BASE_DIR, "model", "features.pkl")
 
 if not os.path.exists(MODEL_PATH) or not os.path.exists(FEATURES_PATH):
-    raise RuntimeError("Model files not found. Run train_model.py first.")
+    raise RuntimeError(f"Model files not found at {MODEL_PATH}. Run train_model.py first.")
 
 model = joblib.load(MODEL_PATH)
 feature_columns = joblib.load(FEATURES_PATH)
