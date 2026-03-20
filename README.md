@@ -15,10 +15,11 @@ An AI-enabled parametric insurance platform that protects food delivery partners
 7. [Parametric Triggers](#parametric-triggers)
 8. [Platform Choice](#platform-choice)
 9. [AI Integration](#ai-integration)
-10. [Tech Stack](#tech-stack)
-11. [Architecture](#architecture)
-12. [Development Plan](#development-plan)
-13. [Expected Impact](#expected-impact)
+10. [AI-Based Plan Recommendation System](#ai-based-plan-recommendation-system)
+11. [Tech Stack](#tech-stack)
+12. [Architecture](#architecture)
+13. [Development Plan](#development-plan)
+14. [Expected Impact](#expected-impact)
 
 ---
 
@@ -276,6 +277,29 @@ AI detects suspicious claim behaviour including:
 | Abnormal patterns | 15 claims/month vs normal 2 claims/month |
 
 **Algorithms:** Isolation Forest, anomaly detection, clustering
+
+### AI-Based Plan Recommendation System
+
+The platform uses a hybrid AI architecture combining Machine Learning and LLaMA3 to provide intelligent, personalized insurance plan recommendations based on each worker's real-world conditions.
+
+**How It Works:**
+
+1. **User Input** — Worker provides weekly salary and current location
+2. **Weather Data Integration** — Real-time weather data is fetched via OpenWeather API and factored into risk evaluation
+3. **Risk Prediction (ML)** — A trained Random Forest model predicts a risk score (0–1) → Low / Medium / High
+4. **AI Recommendation (LLaMA3)** — The risk score, salary, and weather conditions are passed to LLaMA3, which suggests the most suitable plan with a human-readable explanation
+
+**Role of LLaMA3:**
+
+LLaMA3 handles intelligent decision-making and personalized recommendations. It does **not** perform risk prediction — it enhances interpretability and user experience by explaining the selected plan in plain language.
+
+**Recommendation Logic (Hybrid Approach):**
+
+| Step | Component | Role |
+|---|---|---|
+| 1 | ML Model | Predicts risk score |
+| 2 | Rule-Based Constraints | Ensures affordability (avoids expensive plans for low-salary users) |
+| 3 | LLaMA3 | Final recommendation with explanation |
 
 ---
 
