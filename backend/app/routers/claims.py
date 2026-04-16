@@ -1,7 +1,9 @@
+import uuid
+from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.models import Policy, Claim
+from app.models import Policy, Claim, ClaimStatus, PayoutStatus, Worker
 from app.schemas import ClaimResponse
 from typing import List
 
@@ -14,3 +16,33 @@ def get_claims(worker_id: int, db: Session = Depends(get_db)):
     if not policy:
         raise HTTPException(status_code=404, detail="Policy not found")
     return policy.claims
+
+
+@router.post("/process-payout/{claim_id}", response_model=ClaimResponse)
+def process_payout(claim_id: int, db: Session = Depends(get_db)):
+    """
+    Simulates instant payout via mock Razorpay/UPI gateway.
+    Generates a transaction ID and marks payout as Processed.
+    """
+    claim = db.query(Claim).filter(Claim.id == claim_id).first()
+    if not claim:
+        raise HTTPException(status_code=404, detail="Claim not found")
+    if claim.status != ClaimStatus.approved:
+        raise HTTPException(status_code=400, detail="Only approved claims can be paid out")
+    if claim.payout_status == PayoutStatus.processed:
+        raise HTTPException(status_code=400, detail="Payout already processed")
+
+    # Fetch worker UPI for mock response
+    worker = db.query(Worker).filter(Worker.id == claim.policy.worker_id).first()
+    upi_id = worker.upi_id if worker else "unknown@upi"
+
+    # Mock Razorpay/UPI transaction
+    txn_id = f"RZP_{uuid.uuid4().hex[:12].upper()}"
+
+    claim.payout_status = PayoutStatus.processed
+    claim.payout_transaction_id = txn_id
+    claim.payout_processed_at = datetime.utcnow()
+    db.commit()
+    db.refresh(claim)
+
+    return claim
