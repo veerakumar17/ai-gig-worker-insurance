@@ -1,3 +1,9 @@
+PPT Drive Link : https://drive.google.com/file/d/1P21bYFuF2_JAMcyDRpU4o2y3NsU4t80I/view?usp=sharing
+
+YouTube : https://youtu.be/2nRV3jtUHY0?si=VrQ5RjSZnm3Rukaf
+
+Deployed Link : frontend-gamma-sable-32.vercel.app
+
 # AI-Powered Parametric Insurance for Gig Delivery Workers
 
 An AI-enabled parametric insurance platform that protects food delivery partners from income loss caused by disruptions such as heavy rain, extreme heat, floods, or severe pollution.
